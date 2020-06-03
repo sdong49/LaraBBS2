@@ -6,13 +6,17 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
+use App\Models\Category;
+use App\Models\User;
+use Auth;
 
 class ArticlesController extends Controller
-{
+	{
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
+
 
 	public function index()
 	{
@@ -20,25 +24,34 @@ class ArticlesController extends Controller
 		return view('articles.index', compact('articles'));
 	}
 
+
     public function show(Article $article)
     {
         return view('articles.show', compact('article'));
     }
 
+
 	public function create(Article $article)
 	{
-		return view('articles.create_and_edit', compact('article'));
+		$categories = Category::all();
+
+		return view('articles.create_and_edit', compact('article', 'categories'));
 	}
 
-	public function store(ArticleRequest $request)
+
+	public function store(ArticleRequest $request, Article $article)
 	{
-		$article = Article::create($request->all());
+		$article->fill($request->all());
+		$article->user_id = Auth::id();
+		$article->save();
 		return redirect()->route('articles.show', $article->id)->with('message', 'Created successfully.');
 	}
 
+
 	public function edit(Article $article)
 	{
-        $this->authorize('update', $article);
+		$this->authorize('update', $article);
+		$categories = Category::all();
 		return view('articles.create_and_edit', compact('article'));
 	}
 

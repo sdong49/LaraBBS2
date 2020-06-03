@@ -2,59 +2,57 @@
 
 @section('content')
 
-<div class="container">
-  <div class="col-md-10 offset-md-1">
-    <div class="card ">
+  <div class="container">
+    <div class="col-md-10 offset-md-1">
+      <div class="card ">
 
-      <div class="card-header">
-        <h1>
-          Article /
+        <div class="card-body">
+          <h2 class="">
+            <i class="far fa-edit"></i>
+            @if($article->id)
+            Editer votre article
+            @else
+            Créer un nouveau article
+            @endif
+          </h2>
+
+          <hr>
+
           @if($article->id)
-            Edit #{{ $article->id }}
+            <form action="{{ route('articles.update', $article->id) }}" method="POST" accept-charset="UTF-8">
+              <input type="hidden" name="_method" value="PUT">
           @else
-            Create
+            <form action="{{ route('articles.store') }}" method="POST" accept-charset="UTF-8">
           @endif
-        </h1>
-      </div>
 
-      <div class="card-body">
-        @if($article->id)
-          <form action="{{ route('articles.update', $article->id) }}" method="POST" accept-charset="UTF-8">
-          <input type="hidden" name="_method" value="PUT">
-        @else
-          <form action="{{ route('articles.store') }}" method="POST" accept-charset="UTF-8">
-        @endif
+              @csrf
 
-          @include('common.error')
+              @include('shared.error')
 
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <div class="form-group">
+                <input class="form-control" type="text" name="title" value="{{ old('title', $article->title ) }}" placeholder="Titre" required />
+              </div>
 
-          
-                <div class="form-group">
-                	<label for="title-field">Title</label>
-                	<input class="form-control" type="text" name="title" id="title-field" value="{{ old('title', $article->title ) }}" />
-                </div> 
-                <div class="form-group">
-                	<label for="content-field">Content</label>
-                	<textarea name="content" id="content-field" class="form-control" rows="3">{{ old('content', $article->content ) }}</textarea>
-                </div> 
-                <div class="form-group">
-                    <label for="user_id-field">User_id</label>
-                    <input class="form-control" type="text" name="user_id" id="user_id-field" value="{{ old('user_id', $article->user_id ) }}" />
-                </div> 
-                <div class="form-group">
-                	<label for="excerpt-field">Excerpt</label>
-                	<textarea name="excerpt" id="excerpt-field" class="form-control" rows="3">{{ old('excerpt', $article->excerpt ) }}</textarea>
-                </div>
+              <div class="form-group">
+                <select class="form-control" name="category_id" required>
+                  <option value="" hidden disabled selected>Catégorie</option>
+                  @foreach ($errors as $value)
+                  <option value="{{ $value->id }}">{{ $value->name }}</option>
+                  @endforeach
+                </select>
+              </div>
 
-          <div class="well well-sm">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a class="btn btn-link float-xs-right" href="{{ route('articles.index') }}"> <- Back</a>
-          </div>
-        </form>
+              <div class="form-group">
+                <textarea name="content" class="form-control" id="editor" rows="6" placeholder="Au moins 3 caractères" required>{{ old('content', $article->content ) }}</textarea>
+              </div>
+
+              <div class="well well-sm">
+                <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2" aria-hidden="true"></i> Envoyer</button>
+              </div>
+            </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 @endsection

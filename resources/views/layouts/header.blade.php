@@ -11,7 +11,18 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
-  
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('categories.show', 1) }}">Catégorie 01</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('categories.show', 2) }}">Catégorie 02</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('categories.show', 3) }}">Catégorie 03</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('categories.show', 4) }}">Catégorie 04</a>
+        </li>
         </ul>
   
         <!-- Right Side Of Navbar -->
@@ -24,11 +35,11 @@
          
             <a class="nav-link dropdown-toggle" href="{{route('users.show',Auth::id())}}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="https://cdn.learnku.com/uploads/images/201709/20/1/PtDKbASVcz.png?imageView2/1/w/60/h/60" class="img-responsive img-circle" width="30px" height="30px">
-            {{ Auth::user()->name }}
+            Espace personel de {{ Auth::user()->name }}
             </a>
          
             <a style="background-color:rgb(52, 58, 64)" class="dropdown-item" id="logout" href="#">
-                <form action="{{ route('logout') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST" onsubmit="return confirm('Etes vous sûr de vouloir quitter？');">
                 @csrf
                 <button class="btn btn-block btn-danger" type="submit" name="button">Déconnecter</button>
                 </form>

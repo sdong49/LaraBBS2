@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Article extends Model
 {
-    protected $fillable = ['title', 'content', 'user_id', 'excerpt'];
+    protected $fillable = ['title', 'content', 'category_id', 'excerpt'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',

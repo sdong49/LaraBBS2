@@ -5,6 +5,18 @@
 @section('content')
     <main style="width: 1200px; margin:0 auto">
 
+            
+
+          
+
+        @if (isset($category))
+            <div class="alert alert-info" role="alert">
+            {{ $category->name }} ：{{ $category->description }}
+            </div>
+         @endif
+
+         
+
         @if (count($articles))
         <ul class="list-unstyled">
             @foreach ($articles as $article)
@@ -31,6 +43,11 @@
                     <a class="text-secondary" href="{{ route('users.show', [$article->user_id]) }}" title="{{ $article->user->name }}">
                     
                     {{ $article->user->name }}
+                    </a>
+                    <span> • </span>
+                    <a class="text-secondary" href="{{route('categories.show',$article->category_id)}}" title="{{ $article->category->name }}">
+                        <i class="far fa-folder"></i>
+                        {{ $article->category->name }}
                     </a>
                     <span> • </span>
                     <i class="far fa-clock"></i>

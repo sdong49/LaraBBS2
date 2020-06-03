@@ -4,6 +4,8 @@
 
 @section('content')
 
+<main style="width: 1200px; margin:0 auto">
+
 <div class="row">
 
   <div class="col-lg-3 col-md-3 hidden-sm hidden-xs user-info">
@@ -30,10 +32,14 @@
     {{-- 用户发布的内容 --}}
     <div class="card ">
       <div class="card-body">
-        暂无数据 ~_~
+        Ta 的话题
+        @include('users.articles', ['articles' => $user->articles()->recent()->paginate(5)])
+
+
       </div>
     </div>
 
   </div>
 </div>
+</main>
 @endsection
