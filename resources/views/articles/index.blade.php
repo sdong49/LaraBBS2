@@ -5,20 +5,17 @@
 @section('content')
     <main style="width: 1200px; margin:0 auto">
 
-            
-
-          
-
         @if (isset($category))
             <div class="alert alert-info" role="alert">
             {{ $category->name }} ：{{ $category->description }}
             </div>
          @endif
 
-         
+         <a href="{{ route('articles.create') }}" class="btn btn-success btn-block" aria-label="Right Align" style="width: 300px; float:right;">
+              Créer un article</a> 
 
         @if (count($articles))
-        <ul class="list-unstyled">
+        <ul class="list-unstyled" style="clear: both;">
             @foreach ($articles as $article)
             <li class="media">
                 <div class="media-left">

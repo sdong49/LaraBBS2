@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
-
+use App\Http\Requests\ChangePasswordRequest;
+use Auth;
+use Hash;
 
 class UsersController extends Controller
 {
@@ -32,4 +34,34 @@ class UsersController extends Controller
     {
         $this->middleware('auth',['except'=>['show']]);
     }
+
+    public function password()
+    {
+        return view('users.password');
+    }
+
+    public function change(ChangePasswordRequest $request,User $user)
+   {
+        $id = Auth::user()->id;
+        $oldpassword = $request->oldpassword;
+        dd ($oldpassword);
+        $newpassword = $request->password;
+        
+        if(!Hash::check($oldpassword, $user->password)){
+            echo 2;
+            exit;//
+        }
+        $update = array(
+          'password'  =>bcrypt($newpassword),
+        );
+        $result = User::where('id',$id)->update($update);
+        if($result){
+            echo 1;exit;
+        }else{
+            echo 3;exit;
+        }
+    
+    }
+
+
 }

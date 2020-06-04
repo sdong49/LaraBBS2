@@ -4,11 +4,6 @@
 
 @section('content')
     <main style="width: 1200px; margin:0 auto">
-
-
-
-            
-
           
 
         @if (isset($category))
@@ -17,7 +12,8 @@
             </div>
          @endif
 
-         
+         <a href="{{ route('articles.create') }}" class="btn btn-success btn-block" aria-label="Left Align">
+            <i class="fas fa-pencil-alt mr-2"></i>  Créer un article</a> 
 
         @if (count($articles))
         <ul class="list-unstyled">

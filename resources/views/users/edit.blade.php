@@ -8,8 +8,9 @@
     <div class="card">
       <div class="card-header">
         <h4>
-          <i class="glyphicon glyphicon-edit"></i> 编辑个人资料
+          <i class="glyphicon glyphicon-edit"></i> Modifier votre informations personelles
         </h4>
+       
       </div>
 
       <div class="card-body">
@@ -21,24 +22,25 @@
           @include('shared.error')
 
           <div class="form-group">
-            <label for="name-field">用户名</label>
+            <label for="name-field">Pseudo</label>
             <input class="form-control" type="text" name="name" id="name-field" value="{{ old('name', $user->name) }}" />
           </div>
           <div class="form-group">
-            <label for="email-field">邮 箱</label>
+            <label for="email-field">E-mail</label>
             <input class="form-control" type="text" name="email" id="email-field" value="{{ old('email', $user->email) }}" />
           </div>
           <div class="form-group">
-            <label for="introduction-field">个人简介</label>
+            <label for="introduction-field">Profil</label>
             <textarea name="introduction" id="introduction-field" class="form-control" rows="3">{{ old('introduction', $user->introduction) }}</textarea>
           </div>
           <div class="well well-sm">
-            <button type="submit" class="btn btn-primary">保存</button>
+            <button type="submit" class="btn btn-primary">Enreristrer</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 
 @endsection

@@ -24,3 +24,7 @@ Route::resource('users','UsersController');
 Route::resource('articles', 'ArticlesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
+
+Route::get('/password','UsersController@password')->name('password');
+
+Route::post('/password/change','UsersController@change')->name('password.change');
